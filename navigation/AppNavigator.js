@@ -26,6 +26,7 @@ function AppNavigator(){
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
+                    options={{ headerLeft: null}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
