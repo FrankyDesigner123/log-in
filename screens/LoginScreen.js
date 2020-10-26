@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+
+import *  as authAction from '../redux/actions/authActions';
 
 const formSchema = yup.object({
     email: yup.string().email().required(),
@@ -9,7 +12,10 @@ const formSchema = yup.object({
 })
 
 
-const LoginScreen = navData => {
+const LoginScreen = (navData) => {
+
+    const dispatch = useDispatch();
+
     return(
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1}}>
 
@@ -19,8 +25,12 @@ const LoginScreen = navData => {
                 }}
                 validationSchema={formSchema}
                 onSubmit={(values) => {
-                    console.log(values);
-                    navData.navigation.navigate('Home')
+                    dispatch(authAction.loginUser(values))
+                        .then(() => {
+                            navData.navigation.navigate('Home')
+                        })
+                        .catch(err => console.log(err))
+                   
                 }}
             >
                 
