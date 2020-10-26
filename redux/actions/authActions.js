@@ -24,13 +24,19 @@ export const registerUser = (authData) => {
         })
 
         const resultData = await result.json();
-        console.log(resultData);
 
+        if(resultData.success){
+            dispatch({
+                type: REGISTER_USER_SUCCESS,
+                payload: resultData
+            });
+        } else {
+            dispatch({
+                type: REGISTER_USER_FAIL
+            });
+        }
 
-        dispatch({
-            type: REGISTER_USER_SUCCESS,
-            payload: 1
-        });
+        return resultData;
     }
 };
 
@@ -54,10 +60,19 @@ export const loginUser = (authData) => {
         const resultData = await result.json();
         console.log(resultData);
 
-        dispatch({
-            type: LOGIN_USER_SUCCESS,
-            payload: 1
-        });
+        if(resultData.success){
+            dispatch({
+                type: LOGIN_USER_SUCCESS,
+                payload: resultData
+            });
+        } else {
+            dispatch({
+                type: LOGIN_USER_FAIL
+            });
+        }
+
+        return resultData;
+
     }
 };
 
